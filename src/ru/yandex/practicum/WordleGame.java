@@ -119,6 +119,7 @@ public class WordleGame {
     }
 
     public boolean isCorrectAnswer(String word) {
+
         return word.equals(answer);
     }
 
@@ -145,7 +146,7 @@ public class WordleGame {
         return hint;
     }
 
-    private boolean matchesKnowledge(String candidate) {
+        private boolean matchesKnowledge(String candidate) {
         for (Integer position : knownPositions.keySet()) {
             char requiredLetter = knownPositions.get(position);
             if (candidate.charAt(position) != requiredLetter) {
