@@ -3,24 +3,25 @@ package ru.yandex.practicum;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 
 public class Wordle {
 
     public static void main(String[] args) {
-        try (PrintWriter log = new PrintWriter(new FileWriter("wordle.log"))) {
+        try (PrintWriter log = new PrintWriter(new FileWriter("wordle.log", StandardCharsets.UTF_8))) {
             try {
                 runGame(log);
-            } catch (Exception e) {
+            } catch (DictionaryLoadException e) {
                 log.println("Ошибка: " + e.getMessage());
                 e.printStackTrace(log);
             }
         } catch (IOException e) {
-            throw new RuntimeException("Не удалось создать лог-файл", e);
+            System.err.println("Не удалось создать лог-файл: " + e.getMessage());
         }
     }
 
-    private static void runGame(PrintWriter log) throws IOException {
+    private static void runGame(PrintWriter log) {
         WordleDictionary dictionary;
         try {
             dictionary = new WordleDictionaryLoader().loadDictionary("words_ru.txt");

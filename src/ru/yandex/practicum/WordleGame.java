@@ -42,7 +42,10 @@ public class WordleGame {
     }
 
     public void validateWord(String word) throws WordNotFoundInDictionaryException {
-        if (word.length() != 5 || !dictionary.contains(word)) {
+        if (word.length() != 5) {
+            throw new WordNotFoundInDictionaryException("Размер слова не соответствует 5: " + word);
+        }
+        if (!dictionary.contains(word)) {
             throw new WordNotFoundInDictionaryException("Слово не найдено в словаре: " + word);
         }
     }
@@ -136,7 +139,7 @@ public class WordleGame {
         }
 
         if (candidates.isEmpty()) {
-            return answer;
+            throw new IllegalStateException("Не найдено подходящих слов для подсказки");
         }
 
         Random random = new Random();
